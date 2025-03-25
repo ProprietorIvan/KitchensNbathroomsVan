@@ -1,110 +1,109 @@
-import { Clock, Phone } from "lucide-react"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { Clock, Phone } from "lucide-react";
 import Quote from "./Quote";
 import BusinessFrom from "./BusinessForm";
-import Testemonials from '@/components/Testemonials';
+import Testemonials from "@/components/Testemonials";
 
 interface HeroProps {
-  examples: string[];
-  context: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  quoteTitle: string;
-  quoteSubtitle: string;
-  quoteDescription: string;
+  examples?: string[];
+  context?: string;
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  quoteTitle?: string;
+  quoteSubtitle?: string;
+  quoteDescription?: string;
   showQuote?: boolean;
 }
 
-const Hero = ({ examples, context, title, subtitle, description, quoteTitle = '', quoteSubtitle = '', quoteDescription = '',showQuote=true }: HeroProps) => (
-  <>
-    <section className="relative px-4 sm:px-6 pt-20 sm:pt-32 pb-16 sm:pb-24 text-center min-h-[100svh] flex items-center justify-center overflow-hidden">
-      {/* Background Video with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="object-cover w-full h-full"
-        >
-          <source src="/bg-video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
-        <div className="absolute inset-0 backdrop-blur-sm" />
+const Hero = ({
+  examples = [],
+  context = "",
+  title = "Elevate Your Space",
+  subtitle = "Minimalist Kitchen & Bathroom Design",
+  description = "",
+  quoteTitle = "",
+  quoteSubtitle = "",
+  quoteDescription = "",
+  showQuote = false,
+}: HeroProps) => {
+  const [currentImage, setCurrentImage] = useState(0);
+  const images = [
+    {
+      src: "/photos/kitchens/hero.jpg",
+      alt: "Luxurious modern kitchen renovation",
+    },
+    {
+      src: "/photos/bathrooms/hero2.jpg",
+      alt: "Elegant bathroom design",
+    },
+  ];
+
+  useEffect(() => {
+    // Carousel effect: change image every 4 seconds
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev === 0 ? 1 : 0));
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <section className="relative w-full h-screen">
+      {/* Image Carousel */}
+      <div className="absolute inset-0 w-full h-full">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
+              index === currentImage ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-black/30" />
+          </div>
+        ))}
       </div>
+
       {/* Content */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4">
-        <div>
-          <section>
-            <h1 className='text-4xl sm:text-5xl md:text-7xl font-bold text-white tracking-tight mb-4 sm:mb-6 leading-[1.1]'>{title}</h1>
-            <h1 className='text-4xl sm:text-5xl md:text-7xl font-bold text-white tracking-tight mb-4 sm:mb-6 leading-[1.1]'>{subtitle}</h1>
-            <p className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300 mb-7">Choose your project type:</p>
-            <div className="flex gap-2 justify-center flex-col md:flex-row">
-              <a 
-                onClick={() => {
-                  const businessFormCards = document.querySelector('#businessFormCards');
-                  if (businessFormCards) {
-                    businessFormCards.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
-                  }
-                  const businessFormSubmit = document.querySelector('#businessFormSubmit');
-                  setTimeout(() => {
-                    if (businessFormSubmit) {
-                      businessFormSubmit.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
-                    }
-                  }, 2500)
-                }} 
-                className="bg-black text-white py-[12px] px-[120px] rounded-[99px] hover:bg-[#ffc527] hover:text-black"
-              >Your Business</a>
-              <a 
-                onClick={() => {
-                  const yourhome = document.querySelector('#yourhome');
-                  if (yourhome) {
-                    yourhome.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
-                  }
-                }} 
-                className="bg-black text-white py-[12px] px-[120px] rounded-[99px] hover:bg-[#ffc527] hover:text-black"
-              >Your Home</a>
-            </div>
-          </section>
-          <section className="flex justify-between my-[70px]">
-            <div className="text-white">
-              <h2 className='text-4xl font-bold mb-2'>1,200+</h2>
-              <p className="lazyloaded">Projects completed</p>
-            </div>
-            <div className="text-white">
-              <h2 className='text-4xl font-bold  mb-2'>4.9</h2>
-              <p>Customer rating</p>
-            </div>
-            <div className="text-white">
-              <h2 className='text-4xl font-bold  mb-2'>24/7</h2>
-              <p>Support available</p>
-            </div>
-          </section>
+      <div className="relative h-full flex items-center">
+        <div className="max-w-7xl mx-auto px-6 w-full">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-white mb-6 tracking-tight leading-none">
+              {title}
+            </h1>
+            <p className="text-xl md:text-2xl font-light text-white/90 mb-10 tracking-wide">
+              {subtitle}
+            </p>
+            <button className="bg-white px-8 py-4 text-black font-light tracking-wide hover:bg-gray-100 transition-colors duration-300">
+              Get a Free Consultation
+            </button>
+          </div>
         </div>
       </div>
-    </section>
-    <BusinessFrom />
 
-    <Testemonials />
-    {/* Quote Section - Fixed for mobile */}
-    {showQuote && ( <>
-    <div className="w-full max-w-4xl mx-auto text-center px-4 pt-12 pb-8">
-      <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-black mb-6 tracking-tight max-w-[90%] sm:max-w-3xl mx-auto break-words flex flex-col w-[510px]">
-        {quoteTitle}
-      </h1>
-
-      <p className="text-xl sm:text-2xl text-black/80 font-normal tracking-tight mb-6 max-w-[90%] sm:max-w-2xl mx-auto w-[450px]">
-        {quoteSubtitle}
-      </p>
-
-      <div className="text-base text-black/60 font-normal max-w-xl mx-auto leading-relaxed mb-10">
-        {quoteDescription}
+      {/* Carousel Indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentImage(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === currentImage ? "bg-white w-6" : "bg-white/50"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
-    </div>
-
-    <Quote examples={examples} context={context} />
-    </>)}
-  </>
-)
+    </section>
+  );
+};
 
 export default Hero;

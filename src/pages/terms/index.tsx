@@ -1,161 +1,183 @@
-import React from 'react';
-import Head from 'next/head';
-import Navigation from '@/components/Navigation';
+import React from "react";
+import Navigation from "@/components/Navigation";
+import Head from "next/head";
 
-const TermsAndConditions = () => {
-  const sections = [
-    {
-      title: "Service Agreement",
-      content: `When engaging our services, you acknowledge and agree to the following terms:
-        • Service requests must be clearly defined in writing
-        • Pricing is determined based on scope of work
-        • We reserve the right to adjust estimates if project scope changes
-        • Emergency service rates apply outside regular business hours
-        • Minimum service charges may apply
-        • Cancellations require 24-hour notice to avoid charges`
-    },
-    {
-      title: "Warranties & Guarantees",
-      content: `Our commitment to quality includes:
-        • 90-day warranty on workmanship
-        • Manufacturer warranties on installed products
-        • Satisfaction guarantee on completed work
-        • Professional-grade materials and equipment
-        • Licensed and insured service providers
-        • Compliance with local building codes and regulations`
-    },
-    {
-      title: "Payment Terms",
-      content: `Our payment policies include:
-        • Deposits may be required for large projects
-        • Payment is due upon service completion
-        • We accept major credit cards and e-transfers
-        • Interest charges apply on overdue accounts
-        • Special financing available for major renovations
-        • Transparent pricing with no hidden fees`
-    },
-    {
-      title: "Scheduling & Access",
-      content: `To ensure efficient service delivery:
-        • Provide clear access to work areas
-        • Secure permits when required
-        • Allow reasonable time for project completion
-        • Communicate special access requirements
-        • Respect agreed-upon scheduling windows
-        • Notify us promptly of any scheduling conflicts`
-    },
-    {
-      title: "Property Protection",
-      content: `We take extensive measures to protect your property:
-        • Comprehensive insurance coverage
-        • Protective materials for floors and furniture
-        • Careful handling of personal property
-        • Thorough cleanup after service completion
-        • Documentation of pre-existing conditions
-        • Immediate reporting of any incidents`
-    },
-    {
-      title: "Service Limitations",
-      content: `Please note the following service limitations:
-        • Hazardous materials handling requires special arrangements
-        • Some repairs may require specialist contractors
-        • Weather conditions may affect outdoor services
-        • Access restrictions may limit service options
-        • Code compliance may restrict certain modifications
-        • Safety concerns may delay or prevent service`
-    }
-  ];
-
+const TermsPage = () => {
   return (
-    <>
+    <div className="min-h-screen bg-white">
       <Head>
-        <title>Terms & Conditions | A-Z Handyman - Felicita Holdings Ltd.</title>
-        <meta 
-          name="description" 
-          content="Our comprehensive terms and conditions outline our service agreements, warranties, and commitments to our customers. Read about our professional service standards." 
+        <title>Terms of Service | Cloud Bathrooms and Kitchens Vancouver</title>
+        <meta
+          name="description"
+          content="Terms of service for Cloud Bathrooms and Kitchens Vancouver. Read our terms and conditions for renovation services."
         />
       </Head>
 
-      <div className="min-h-screen bg-white">
-        <Navigation showActions={false} />
+      <Navigation />
 
-        <div className="max-w-7xl mx-auto px-4 pb-20">
-          {/* Header Section */}
-          <div className="text-center pt-20 mb-20">
-            <h1 className="text-5xl font-bold mb-6">Terms & Conditions</h1>
-            <div className="flex justify-center items-center gap-4 mb-8">
-              <div className="h-px w-16 bg-yellow-400" />
-              <p className="text-lg text-gray-600">Service Agreement</p>
-              <div className="h-px w-16 bg-yellow-400" />
-            </div>
-            <p className="max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed">
-              The following terms and conditions govern all services provided by Felicita Holdings Ltd., 
-              operating as A-Z Handyman. By engaging our services, you agree to these terms.
-            </p>
-          </div>
+      <div className="max-w-4xl mx-auto py-16 px-6">
+        <h1 className="text-4xl font-light mb-12">Terms of Service</h1>
 
-          {/* Terms Sections */}
-          <div className="max-w-4xl mx-auto">
-            {sections.map((section, index) => (
-              <div key={index} className="mb-16">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="h-12 w-1 bg-yellow-400 mt-1" />
-                  <div>
-                    <h2 className="text-3xl font-bold">{section.title}</h2>
-                  </div>
-                </div>
-                <div className="pl-5">
-                  <p className="text-gray-600 whitespace-pre-line leading-relaxed">
-                    {section.content}
-                  </p>
-                </div>
-              </div>
-            ))}
+        <div className="prose prose-lg max-w-none">
+          <p>
+            Welcome to Cloud Bathrooms and Kitchens Vancouver. These Terms of
+            Service govern your use of our website and services. By accessing
+            our website or engaging our services, you agree to these terms.
+            Please read them carefully.
+          </p>
 
-            {/* Professional Standards Notice */}
-            <div className="bg-gray-50 p-8 rounded-lg mb-16">
-              <h2 className="text-3xl font-bold mb-6">Professional Standards</h2>
-              <p className="text-gray-600 mb-4">
-                A-Z Handyman maintains the highest professional standards in the industry. We are:
-              </p>
-              <ul className="list-none space-y-3 text-gray-600">
-                <li>• Fully licensed and insured</li>
-                <li>• WorkSafeBC compliant</li>
-                <li>• Committed to ongoing professional development</li>
-                <li>• Adherent to all local building codes and regulations</li>
-                <li>• Dedicated to exceptional customer service</li>
-              </ul>
-            </div>
+          <h2>1. Services</h2>
+          <p>
+            Cloud Bathrooms and Kitchens Vancouver provides bathroom and kitchen
+            renovation services in the Greater Vancouver area. Our services
+            include design, demolition, installation, and project management.
+          </p>
 
-            {/* Contact Box */}
-            <div className="bg-black text-white p-8 rounded-lg text-center">
-              <h2 className="text-2xl font-bold mb-4">Questions About Our Terms?</h2>
-              <p className="mb-6">
-                Our team is here to help clarify any aspects of our terms and conditions.
-              </p>
-              <div className="space-y-2">
-                <p>Felicita Holdings Ltd. (d.b.a. A-Z Handyman)</p>
-                <p>1217 Howe St. Vancouver, BC V6Z 1R3</p>
-                <div className="flex justify-center gap-8 mt-4">
-                  <a href="mailto:info@azhandyman.ca" className="text-yellow-400 hover:text-yellow-300">
-                    info@azhandyman.ca
-                  </a>
-                  <a href="tel:+17786534862" className="text-yellow-400 hover:text-yellow-300">
-                    +1 778-653-4862
-                  </a>
-                </div>
-              </div>
-            </div>
+          <h2>2. Quotes and Estimates</h2>
+          <p>
+            All quotes and estimates provided by Cloud Bathrooms and Kitchens
+            Vancouver are valid for 30 days from the date of issuance. Quotes
+            are based on our assessment of your requirements and may be subject
+            to change if additional work is required or if unforeseen
+            circumstances arise during the renovation process.
+          </p>
 
-            {/* Last Updated */}
-            <p className="text-sm text-gray-500 text-center mt-16">
-              Last Updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </p>
-          </div>
+          <h2>3. Contracts</h2>
+          <p>
+            All services require a signed contract before work commences. The
+            contract will outline the scope of work, timeline, payment schedule,
+            and other important details. Any changes to the scope of work after
+            the contract is signed may result in additional costs and timeline
+            adjustments.
+          </p>
+
+          <h2>4. Payments</h2>
+          <p>Payment terms are as follows:</p>
+          <ul>
+            <li>30% deposit upon signing the contract</li>
+            <li>40% payment at the midpoint of the project</li>
+            <li>30% final payment upon completion of the project</li>
+          </ul>
+          <p>
+            We accept payments via bank transfer, certified check, or credit
+            card. A 3% processing fee applies to credit card payments.
+          </p>
+
+          <h2>5. Cancellation Policy</h2>
+          <p>
+            If you need to cancel your project after signing the contract but
+            before work begins, a cancellation fee of 15% of the total project
+            cost will apply. Cancellations after work has begun will be charged
+            based on the percentage of work completed plus a 15% cancellation
+            fee on the remaining balance.
+          </p>
+
+          <h2>6. Warranties</h2>
+          <p>
+            Cloud Bathrooms and Kitchens Vancouver provides a 2-year warranty on
+            all workmanship. Manufacturer warranties apply to all products and
+            materials installed. To maintain your warranty, you must follow all
+            care instructions provided upon completion of the project.
+          </p>
+
+          <h2>7. Timeline</h2>
+          <p>
+            While we strive to complete all projects within the estimated
+            timeline, delays may occur due to unforeseen circumstances,
+            including but not limited to material backorders, permit delays, or
+            discovery of underlying structural issues. We will communicate any
+            delays promptly and work to minimize their impact on your project.
+          </p>
+
+          <h2>8. Change Orders</h2>
+          <p>
+            Any changes to the original scope of work must be documented in a
+            change order and signed by both parties. Change orders may impact
+            the project timeline and cost. We will provide a detailed estimate
+            for any requested changes before proceeding.
+          </p>
+
+          <h2>9. Access to Property</h2>
+          <p>
+            You agree to provide reasonable access to your property during
+            regular business hours (Monday to Friday, 8 AM to 5 PM) for the
+            duration of the project. If access is restricted, project timelines
+            may be extended.
+          </p>
+
+          <h2>10. Insurance</h2>
+          <p>
+            Cloud Bathrooms and Kitchens Vancouver maintains comprehensive
+            liability insurance and WorkSafeBC coverage for all employees and
+            subcontractors. Upon request, we will provide proof of insurance.
+          </p>
+
+          <h2>11. Dispute Resolution</h2>
+          <p>
+            In the event of a dispute, both parties agree to attempt resolution
+            through good-faith negotiation. If negotiation fails, disputes will
+            be resolved through mediation in Vancouver, British Columbia, before
+            pursuing legal action.
+          </p>
+
+          <h2>12. Website Usage</h2>
+          <p>
+            The content on our website is for informational purposes only. While
+            we strive to keep the information up to date and accurate, we make
+            no representations or warranties of any kind, express or implied,
+            about the completeness, accuracy, reliability, suitability, or
+            availability of the information.
+          </p>
+
+          <h2>13. Intellectual Property</h2>
+          <p>
+            All content on our website, including text, graphics, logos, and
+            images, is the property of Cloud Bathrooms and Kitchens Vancouver
+            and is protected by copyright and intellectual property laws. You
+            may not reproduce, distribute, or use our content without our
+            written permission.
+          </p>
+
+          <h2>14. Privacy</h2>
+          <p>
+            Your privacy is important to us. Please refer to our Privacy Policy
+            for information on how we collect, use, and protect your personal
+            information.
+          </p>
+
+          <h2>15. Limitation of Liability</h2>
+          <p>
+            Cloud Bathrooms and Kitchens Vancouver shall not be liable for any
+            indirect, incidental, special, consequential, or punitive damages
+            resulting from your use of our services or website.
+          </p>
+
+          <h2>16. Changes to Terms</h2>
+          <p>
+            We reserve the right to modify these terms at any time. Changes will
+            be effective immediately upon posting on our website. Your continued
+            use of our services after any changes indicates your acceptance of
+            the new terms.
+          </p>
+
+          <h2>17. Contact Information</h2>
+          <p>
+            If you have any questions about these Terms of Service, please
+            contact us at:
+          </p>
+          <p>
+            Cloud Bathrooms and Kitchens Vancouver
+            <br />
+            +1 (778) 200-8827
+            <br />
+            info@cloudbathrooms.ca
+          </p>
+
+          <p className="text-sm text-gray-500 mt-8">Last updated: May 2023</p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default TermsAndConditions;
+export default TermsPage;

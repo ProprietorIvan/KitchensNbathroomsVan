@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { Menu, X, Phone, Mail, Check } from "lucide-react";
+import { Menu, X, Phone, Mail } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -42,11 +42,11 @@ const ContactButton = ({
     <a
       href={href}
       onClick={handleCopy}
-      className={`relative flex items-center gap-3 w-full transition-colors ${className}`}
+      className={`relative flex items-center gap-3 transition-colors ${className}`}
     >
       {icon}
       <div className="flex-1 min-w-0">
-        <span className="block font-medium truncate">{displayText}</span>
+        <span className="block font-light truncate">{displayText}</span>
       </div>
       <div
         className={`
@@ -74,11 +74,10 @@ const Navigation = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const isHomepage = router.pathname === "/" || router.pathname === "";
-  const isDrywallPage = router.pathname === "/drywall";
 
-  const phoneNumber = isDrywallPage ? "(778) 653-4862" : "(778) 653-4862";
-  const phoneNumberClean = isDrywallPage ? "(778) 653-2862" : "(778) 653-4862";
-  const email = "info@azhandyman.ca";
+  const phoneNumber = "(778) 200-8827";
+  const phoneNumberClean = "7782008827";
+  const email = "dream@vanbathsnkitchens.com";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,18 +88,21 @@ const Navigation = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = isHomepage
-    ? [{ text: "Services", url: "/services" }]
-    : [
-        { text: "Home", url: "/" },
-        { text: "Services", url: "/services" },
-      ];
+  const navLinks = [
+    { text: "Home", url: "/" },
+    { text: "Kitchens", url: "/kitchens" },
+    { text: "Bathrooms", url: "/bathrooms" },
+    { text: "About", url: "/about" },
+    { text: "Contact", url: "/contact" },
+  ];
 
   const navClasses = `
     w-full z-50 transition-all duration-300
-    ${isHomepage ? "lg:absolute bg-white lg:bg-transparent" : "bg-white"}
-    ${!isHomepage && isScrolled ? "shadow-lg" : ""}
-    lg:fixed
+    ${
+      isHomepage && !isScrolled
+        ? "absolute bg-transparent"
+        : "fixed bg-white shadow-sm"
+    }
   `;
 
   return (
@@ -108,22 +110,31 @@ const Navigation = ({
       {/* Mobile Navigation */}
       <div className="lg:hidden">
         {/* Top Bar */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+        <div className="flex items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center">
-            <div className="relative h-12 w-36">
-              <Image
-                src="/logo.webp"
-                alt="A-Z Handyman Vancouver"
-                fill
-                sizes="144px"
-                className="object-contain"
-                priority
-              />
-            </div>
+            <span className="text-xl font-light tracking-tight">
+              <span
+                className={
+                  isHomepage && !isScrolled ? "text-white" : "text-black"
+                }
+              >
+                Cloud
+              </span>
+              <span
+                className={
+                  isHomepage && !isScrolled ? "text-white/80" : "text-gray-500"
+                }
+              >
+                {" "}
+                Bathrooms & Kitchens
+              </span>
+            </span>
           </Link>
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 text-gray-600 hover:text-gray-900 transition-colors"
+            className={`p-2 transition-colors ${
+              isHomepage && !isScrolled ? "text-white" : "text-gray-800"
+            }`}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
@@ -134,103 +145,98 @@ const Navigation = ({
           </button>
         </div>
 
-        {/* Contact Info Bar - Always visible */}
-        <div className="px-4 py-3 bg-gray-50">
-          <div className="space-y-2">
-            <ContactButton
-              textToCopy={phoneNumber}
-              displayText={phoneNumber}
-              href={`tel:${phoneNumberClean}`}
-              icon={
-                <div className="flex items-center justify-center w-10 h-10 bg-yellow-500 rounded-full">
-                  <Phone className="w-5 h-5 text-white" />
-                </div>
-              }
-              className="text-gray-900 hover:text-yellow-600"
-            />
-            <ContactButton
-              textToCopy={email}
-              displayText={email}
-              href={`mailto:${email}`}
-              icon={
-                <div className="flex items-center justify-center w-10 h-10 bg-yellow-500 rounded-full">
-                  <Mail className="w-5 h-5 text-white" />
-                </div>
-              }
-              className="text-gray-900 hover:text-yellow-600"
-            />
-          </div>
-        </div>
-
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="border-t border-gray-100">
+          <div className="bg-white border-t border-gray-100">
             {navLinks.map((link) => (
               <Link
                 key={link.url}
                 href={link.url}
-                className="block px-4 py-3 text-gray-900 hover:bg-gray-50 active:bg-gray-100 transition-colors"
+                className="block px-6 py-3 text-gray-800 hover:bg-gray-50 active:bg-gray-100 transition-colors font-light"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.text}
               </Link>
             ))}
+            <div className="px-6 py-4 border-t border-gray-100 space-y-3">
+              <ContactButton
+                textToCopy={phoneNumber}
+                displayText={phoneNumber}
+                href={`tel:${phoneNumberClean}`}
+                icon={<Phone className="w-4 h-4 text-gray-500" />}
+                className="text-gray-800"
+              />
+              <ContactButton
+                textToCopy={email}
+                displayText={email}
+                href={`mailto:${email}`}
+                icon={<Mail className="w-4 h-4 text-gray-500" />}
+                className="text-gray-800"
+              />
+            </div>
           </div>
         )}
       </div>
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:block max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-24">
+      <div className="hidden lg:block max-w-7xl mx-auto px-6">
+        <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center">
-            <div className="relative h-16 w-48">
-              <Image
-                src="/logo.webp"
-                alt="A-Z Handyman Vancouver"
-                fill
-                sizes="192px"
-                className="object-contain"
-                priority
-              />
-            </div>
+            <span className="text-2xl font-light tracking-tight">
+              <span
+                className={
+                  isHomepage && !isScrolled ? "text-white" : "text-black"
+                }
+              >
+                Cloud
+              </span>
+              <span
+                className={
+                  isHomepage && !isScrolled ? "text-white/80" : "text-gray-500"
+                }
+              >
+                {" "}
+                Bathrooms & Kitchens
+              </span>
+            </span>
           </Link>
 
-          <div className="flex items-center gap-12">
+          <div className="flex items-center gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.url}
                 href={link.url}
-                className={`text-base font-medium ${
-                  isHomepage
-                    ? "text-white hover:text-yellow-400"
-                    : "text-gray-900 hover:text-yellow-600"
-                } transition-colors`}
+                className={`text-sm tracking-wide ${
+                  isHomepage && !isScrolled
+                    ? "text-white hover:text-white/70"
+                    : "text-gray-800 hover:text-gray-500"
+                } transition-colors font-light`}
               >
                 {link.text}
               </Link>
             ))}
 
-            <div className="flex items-center gap-8 pl-8 border-l border-gray-200">
+            <div className="flex items-center gap-6 pl-6 border-l border-gray-200">
               <ContactButton
                 textToCopy={phoneNumber}
                 displayText={phoneNumber}
                 href={`tel:${phoneNumberClean}`}
-                icon={<Phone className="w-5 h-5" />}
+                icon={<Phone className="w-4 h-4" />}
                 className={
-                  isHomepage
-                    ? "text-white hover:text-yellow-400"
-                    : "text-gray-900 hover:text-yellow-600"
+                  isHomepage && !isScrolled
+                    ? "text-white hover:text-white/70"
+                    : "text-gray-800 hover:text-gray-500"
                 }
               />
               <ContactButton
                 textToCopy={email}
                 displayText={email}
                 href={`mailto:${email}`}
-                icon={<Mail className="w-5 h-5" />}
+                icon={<Mail className="w-4 h-4" />}
                 className={
-                  isHomepage
-                    ? "text-white hover:text-yellow-400"
-                    : "text-gray-900 hover:text-yellow-600"
+                  isHomepage && !isScrolled
+                    ? "text-white hover:text-white/70"
+                    : "text-gray-800 hover:text-gray-500"
                 }
               />
             </div>

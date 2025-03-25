@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactNode, useCallback } from "react";
-import { Star, ChevronLeft, ChevronRight, Droplets } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 // Create a simple Card component instead of importing to avoid circular references
@@ -13,45 +13,42 @@ const TestimonialCard = ({ children, className }: TestimonialCardProps) => {
 };
 
 const Testimonials = () => {
-  const floodReviews = [
+  const reviews = [
+    {
+      name: "Emily Chen",
+      role: "Kitchen Renovation Client",
+      text: "Working with Cloud Bathrooms and Kitchens was an exceptional experience. Their minimalist design approach transformed our outdated kitchen into a stunning, functional space that perfectly matches our lifestyle. The attention to detail was impressive.",
+      image: "/photos/reviews/1.jpg",
+    },
+    {
+      name: "James Wilson",
+      role: "Bathroom Remodel Client",
+      text: "The team at Cloud delivered our dream bathroom on time and on budget. Their clean, elegant design has completely transformed our master bathroom into a spa-like retreat. The craftsmanship is impeccable.",
+      image: "/photos/reviews/2.jpg",
+    },
+    {
+      name: "Sophia Martinez",
+      role: "Full Home Renovation",
+      text: "We renovated both our kitchen and two bathrooms with Cloud, and the results exceeded our expectations. Their design vision and execution were flawless. The spaces flow beautifully and the minimalist aesthetic has brought such calm to our home.",
+      image: "/photos/reviews/3.jpg",
+    },
+    {
+      name: "David Park",
+      role: "Kitchen Client",
+      text: "Cloud's attention to detail is unmatched. From the initial design consultation to the final touches, every aspect of our kitchen renovation was handled with precision and care. The custom cabinetry is exactly what we wanted.",
+      image: "",
+    },
     {
       name: "Sarah Johnson",
-      role: "Vancouver Homeowner",
-      text: "After a pipe burst in my basement, Felicita Holdings responded within an hour. Their flood restoration team was professional, efficient, and saved us thousands in potential damage. Couldn't recommend them more highly!",
-      image: "/photos/reviews/1.jpg",
-      hasImage: true,
+      role: "Bathroom Renovation",
+      text: "Our bathroom renovation was completed on schedule and the results are stunning. The team was professional, communicative, and accommodating of our requests throughout the process. I wouldn't hesitate to recommend Cloud.",
+      image: "",
     },
     {
-      name: "Michael Chen",
-      role: "Commercial Property Manager",
-      text: "Managing multiple properties in Vancouver, I need reliable emergency flood services. Their 24/7 response team has saved us multiple times from serious water damage situations. Their thorough moisture detection and drying process is exceptional.",
-      image: "/photos/reviews/2.jpg",
-      hasImage: true,
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Restaurant Owner",
-      text: "When our restaurant kitchen flooded overnight, we feared the worst. Felicita's team arrived quickly, extracted all the water, and had industrial dryers set up within hours. They saved our business from closing for repairs!",
-      image: "/photos/reviews/3.jpg",
-      hasImage: true,
-    },
-    {
-      name: "Carlos Crespo",
-      role: "Verified Customer",
-      text: "Thank you Danny for doing a great job repairing the water damage and installing new drywall after our flooding incident. The whole experience was very pleasant, and I appreciate the team's responsiveness during such a stressful situation.",
-      hasImage: false,
-    },
-    {
-      name: "Anmol Virk",
-      role: "Verified Customer",
-      text: "Very satisfied with their flood restoration service and quality of work. Danny is very knowledgeable about water damage issues and gives his honest opinion. Their flood cleanup was thorough and prices are very reasonable.",
-      hasImage: false,
-    },
-    {
-      name: "Monty Gill",
-      role: "Verified Customer",
-      text: "Great emergency flood response and work ethic. They arrived quickly after our basement flooded, extracted all water efficiently, and prevented mold growth. Great prices and quality work!",
-      hasImage: false,
+      name: "Michael Thompson",
+      role: "Kitchen and Bath Client",
+      text: "Cloud transformed both our kitchen and master bathroom with their sleek, minimalist designs. The spaces are not only beautiful but incredibly functional. The team's professionalism and craftsmanship were evident at every stage.",
+      image: "",
     },
   ];
 
@@ -67,17 +64,15 @@ const Testimonials = () => {
   const handleNext = useCallback(() => {
     setCurrentIndex((prevIndex) => {
       const nextIndex = prevIndex + 1;
-      return nextIndex >= floodReviews.length - (reviewsToShow.desktop - 1)
+      return nextIndex >= reviews.length - (reviewsToShow.desktop - 1)
         ? 0
         : nextIndex;
     });
-  }, [floodReviews.length, reviewsToShow.desktop]);
+  }, [reviews.length, reviewsToShow.desktop]);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0
-        ? floodReviews.length - reviewsToShow.desktop
-        : prevIndex - 1
+      prevIndex === 0 ? reviews.length - reviewsToShow.desktop : prevIndex - 1
     );
     setIsAutoPlaying(false);
   };
@@ -92,11 +87,11 @@ const Testimonials = () => {
     return () => clearInterval(interval);
   }, [currentIndex, isAutoPlaying, handleNext]);
 
-  // Schema markup is now a simple object (not rendered in component)
+  // Schema markup
   const reviewSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Felicita Holdings - Vancouver Flood Restoration",
+    name: "Cloud Bathrooms and Kitchens Vancouver",
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "5.0",
@@ -104,7 +99,7 @@ const Testimonials = () => {
       bestRating: "5",
       worstRating: "1",
     },
-    review: floodReviews.map((review) => ({
+    review: reviews.map((review) => ({
       "@type": "Review",
       datePublished: new Date().toISOString().split("T")[0],
       reviewRating: {
@@ -122,34 +117,18 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-16 px-5 bg-white relative overflow-hidden">
-      {/* Background water pattern */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-        <div className="absolute inset-0 bg-[url('/texture/noise.png')] opacity-8" />
-        <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/4">
-          <Droplets className="w-96 h-96 text-[#8B2635] opacity-10" />
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto relative">
+    <section className="py-20 px-6 bg-white">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Customer Stories
-          </h2>
-          <div className="flex justify-center items-center gap-4 mb-8">
-            <div className="h-px w-16 bg-yellow-400" />
-            <p className="text-lg text-gray-600">What Our Clients Say</p>
-            <div className="h-px w-16 bg-yellow-400" />
-          </div>
-          <div className="flex justify-center items-center gap-2 mb-8">
+        <div className="max-w-2xl mx-auto text-center mb-16">
+          <h2 className="text-3xl font-light mb-6">Client Testimonials</h2>
+          <p className="text-gray-600 mb-4">
+            See what our clients have to say about their renovation experience
+          </p>
+          <div className="flex justify-center items-center gap-1">
             {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className="w-6 h-6 fill-yellow-400 text-yellow-400"
-              />
+              <Star key={i} className="w-4 h-4 fill-gray-900 text-gray-900" />
             ))}
-            <span className="ml-2 text-xl font-semibold">5.0</span>
           </div>
         </div>
 
@@ -157,60 +136,59 @@ const Testimonials = () => {
         <div className="relative">
           <div className="overflow-hidden">
             <div
-              className="flex transition-transform duration-500 ease-in-out"
+              className="flex transition-transform duration-700 ease-out"
               style={{
                 transform: `translateX(-${
                   currentIndex * (100 / reviewsToShow.desktop)
                 }%)`,
-                transition: "transform 2s ease-in-out",
               }}
             >
-              {floodReviews.map((review, index) => (
+              {reviews.map((review, index) => (
                 <div
                   key={`${review.name}-${index}`}
                   className="w-full min-w-full md:w-1/2 md:min-w-[50%] lg:w-1/3 lg:min-w-[33.333%] px-4"
                 >
-                  <TestimonialCard className="bg-white p-8 h-full shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg border border-gray-100">
+                  <TestimonialCard className="bg-gray-50 p-8 h-full rounded-none transition-all duration-300">
                     <div className="flex flex-col h-full">
                       {/* Star Rating */}
-                      <div className="mb-4">
+                      <div className="mb-6">
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className="w-4 h-4 fill-yellow-400 text-yellow-400 inline-block mr-1"
+                            className="w-3 h-3 fill-gray-900 text-gray-900 inline-block mr-1"
                           />
                         ))}
                       </div>
 
                       {/* Review Text */}
                       <blockquote className="flex-grow mb-6">
-                        <p className="text-gray-600 leading-relaxed">
+                        <p className="text-sm text-gray-600 leading-relaxed">
                           &ldquo;{review.text}&rdquo;
                         </p>
                       </blockquote>
 
                       {/* Reviewer Info */}
                       <div className="flex items-center">
-                        {review.hasImage && review.image ? (
-                          <div className="relative w-12 h-12 rounded-full overflow-hidden mr-4">
+                        {review.image ? (
+                          <div className="relative w-10 h-10 rounded-full overflow-hidden mr-4">
                             <Image
                               src={review.image}
                               alt={review.name}
-                              width={48}
-                              height={48}
+                              width={40}
+                              height={40}
                               className="object-cover"
                             />
                           </div>
                         ) : (
-                          <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-4">
-                            <span className="text-xl font-semibold text-gray-500">
+                          <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mr-4">
+                            <span className="text-sm font-light text-gray-600">
                               {review.name[0]}
                             </span>
                           </div>
                         )}
                         <div>
-                          <p className="font-semibold">{review.name}</p>
-                          <p className="text-sm text-gray-500">{review.role}</p>
+                          <p className="text-sm font-medium">{review.name}</p>
+                          <p className="text-xs text-gray-500">{review.role}</p>
                         </div>
                       </div>
                     </div>
@@ -223,40 +201,29 @@ const Testimonials = () => {
           {/* Navigation Buttons */}
           <button
             onClick={handlePrev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:translate-x-0 bg-white p-2 rounded-full shadow-lg hover:bg-gray-50 transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:translate-x-0 bg-white rounded-full shadow-sm hover:bg-gray-50 transition-colors p-2"
             aria-label="Previous review"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={handleNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-0 bg-white p-2 rounded-full shadow-lg hover:bg-gray-50 transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-0 bg-white rounded-full shadow-sm hover:bg-gray-50 transition-colors p-2"
             aria-label="Next review"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Google Review Link */}
+        {/* Review Link */}
         <div className="text-center mt-12">
           <a
             href="https://g.co/kgs/MPxhuzL"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-black hover:text-gray-600 transition-colors"
+            className="text-sm font-light text-gray-600 hover:text-gray-900 transition-colors"
           >
             See all reviews on Google
-            <svg
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
           </a>
         </div>
       </div>

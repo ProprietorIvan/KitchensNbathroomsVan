@@ -1,23 +1,18 @@
 import React from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 const Footer = () => {
   // Structured data for the organization
   const organizationStructuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "A-Z Handyman",
-    url: "https://az-handyman.ca",
-    logo: "https://az-handyman.ca/logo.png",
-    parentOrganization: {
-      "@type": "Organization",
-      name: "Felicita Group",
-      url: "https://www.felicita.group",
-    },
+    name: "Cloud Bathrooms and Kitchens Vancouver",
+    url: "https://vanbathsnkitchens.com",
+    logo: "https://vanbathsnkitchens.com/logo.png",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "1205 Howe St.",
       addressLocality: "Vancouver",
       addressRegion: "BC",
       postalCode: "V6Z 1R3",
@@ -25,24 +20,16 @@ const Footer = () => {
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+17786534862",
+      telephone: "+17782008827",
       contactType: "customer service",
-      email: "info@az-handyman.ca",
+      email: "dream@vanbathsnkitchens.com",
       availableLanguage: ["English"],
     },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-      ],
-      opens: "00:00",
-      closes: "23:59",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
     },
   };
 
@@ -57,109 +44,107 @@ const Footer = () => {
         />
       </Head>
 
-      <div className="relative mt-16">
-        <footer
-          className="bg-black text-white py-12 px-6"
-          aria-label="Site Footer"
-        >
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* We are here to help Section */}
-            <section aria-label="About Us">
-              <h2 className="text-lg font-semibold mb-4">
-                We are here to help
-              </h2>
-              <div
-                className="h-1 w-12 bg-orange-600 mb-4"
-                aria-hidden="true"
-              ></div>
-              <p className="text-gray-300">
-                If you do not see the service you need, contact us. At A-Z
-                Handyman, no task is too big or small—we are ready to take on
-                new challenges and get the job done right.
+      <footer className="bg-white border-t border-gray-100 py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+            {/* Company */}
+            <div>
+              <h3 className="text-lg font-light mb-6">Cloud</h3>
+              <p className="text-sm text-gray-600 leading-relaxed mb-6">
+                Premium kitchen and bathroom renovations in Vancouver.
+                Transforming spaces with minimalist elegance and superior
+                craftsmanship.
               </p>
-            </section>
+            </div>
 
-            {/* Opening Hours Section */}
-            <section aria-label="Opening Hours">
-              <h2 className="text-lg font-semibold mb-4">
-                OPENING <span className="text-yellow-500">HOURS</span>
-              </h2>
-              <div
-                className="h-1 w-12 bg-orange-600 mb-4"
-                aria-hidden="true"
-              ></div>
-              <p className="text-gray-300">
-                Open 24 hours a day, 7 days a week!
-              </p>
-            </section>
+            {/* Links */}
+            <div>
+              <h3 className="text-lg font-light mb-6">Quick Links</h3>
+              <ul className="space-y-3">
+                {["Home", "Kitchens", "Bathrooms", "About", "Contact"].map(
+                  (link) => (
+                    <li key={link}>
+                      <Link
+                        href={link === "Home" ? "/" : `/${link.toLowerCase()}`}
+                        className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                      >
+                        {link}
+                      </Link>
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
 
-            {/* Contact Here Section */}
-            <section aria-label="Contact Information">
-              <h2 className="text-lg font-semibold mb-4">
-                CONTACT <span className="text-yellow-500">HERE</span>
-              </h2>
-              <div
-                className="h-1 w-12 bg-orange-600 mb-4"
-                aria-hidden="true"
-              ></div>
-              <address className="text-gray-300 space-y-2 not-italic">
-                <p>Address: 1217 Howe St. Vancouver BC</p>
-                <p>
-                  Phone:{" "}
-                  <a
-                    href="tel:+17786534862"
-                    className="hover:text-white transition-colors"
-                  >
-                    (778) 653-4862
-                  </a>
-                </p>
-                <p>
-                  Email:{" "}
-                  <a
-                    href="mailto:info@azhandyman.ca"
-                    className="hover:text-white transition-colors"
-                  >
-                    info@azhandyman.ca
-                  </a>
-                </p>
-              </address>
-            </section>
+            {/* Services */}
+            <div>
+              <h3 className="text-lg font-light mb-6">Services</h3>
+              <ul className="space-y-3">
+                {[
+                  "Kitchen Renovation",
+                  "Bathroom Remodeling",
+                  "Custom Cabinetry",
+                  "Countertop Installation",
+                  "Tile Work",
+                ].map((service) => (
+                  <li key={service}>
+                    <span className="text-sm text-gray-600">{service}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h3 className="text-lg font-light mb-6">Contact</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <Phone className="w-4 h-4 text-gray-400 mt-0.5" />
+                  <span className="text-sm text-gray-600">(778) 200-8827</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Mail className="w-4 h-4 text-gray-400 mt-0.5" />
+                  <span className="text-sm text-gray-600">
+                    dream@vanbathsnkitchens.com
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <MapPin className="w-4 h-4 text-gray-400 mt-0.5" />
+                  <span className="text-sm text-gray-600">Vancouver, BC</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Clock className="w-4 h-4 text-gray-400 mt-0.5" />
+                  <span className="text-sm text-gray-600">
+                    Mon-Fri: 9am - 6pm
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Bottom Bar */}
-          <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-gray-800">
-            <div className="flex flex-col items-center text-gray-400 text-sm space-y-4">
-              <div className="text-xs tracking-wider text-gray-500">
-                <a
-                  href="https://www.felicita.group"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-normal hover:text-gray-300 transition-colors"
-                >
-                  Felicita Group Company
-                </a>
-              </div>
-              <div className="flex flex-col md:flex-row justify-between items-center w-full">
-                <p>© {new Date().getFullYear()}. ALL RIGHTS RESERVED</p>
-                <div className="flex space-x-8 mt-4 md:mt-0">
-                  <Link
-                    href="/privacy-policy"
-                    className="hover:text-white transition-colors"
-                  >
-                    PRIVACY POLICY
-                  </Link>
-                  <Link
-                    href="/terms"
-                    className="hover:text-white transition-colors"
-                  >
-                    TERMS & CONDITIONS
-                  </Link>
-                </div>
-              </div>
+          <div className="mt-12 pt-6 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-xs text-gray-500">
+              © {new Date().getFullYear()} Cloud Bathrooms and Kitchens
+              Vancouver. All rights reserved.
+            </p>
+            <div className="flex space-x-6">
+              <Link
+                href="/privacy-policy"
+                className="text-xs text-gray-500 hover:text-gray-800 transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms"
+                className="text-xs text-gray-500 hover:text-gray-800 transition-colors"
+              >
+                Terms & Conditions
+              </Link>
             </div>
           </div>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </>
   );
 };
